@@ -1,3 +1,6 @@
-# ignore assignment brief
 *.pdf
 ./vs
+/node_modules
+
+# ignore any .env file
+*.env

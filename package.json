@@ -1,0 +1,28 @@
+{
+  "name": "summative-1",
+  "version": "1.0.0",
+  "description": "project assignment for uni",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha",
+    "run": "node run app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickBurness/Summative-1.git"
+  },
+  "author": "NickBurness",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NickBurness/Summative-1/issues"
+  },
+  "homepage": "https://github.com/NickBurness/Summative-1#readme",
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^11.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
