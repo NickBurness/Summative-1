@@ -1,13 +1,10 @@
 // filename: app.js
 // purpose: Entry point of the application 
-
+const config = require('../src/config/config');
 const express = require('express') // use express a minimalist framework for Node.js
-const dotenv = require('dotenv') // Get configurations from secrets file
 
-// Load the environment variables from the .env file
-dotenv.config()
 
-const PORT = process.env.PORT // access environment variables
+const PORT = config.port // access environment variables
 const app = express()
 
 app.get('/', (req, res) => {
