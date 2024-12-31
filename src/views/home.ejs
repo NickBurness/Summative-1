@@ -10,24 +10,85 @@
 <body>
     <%- include('partials/navbar', { activePage: '' }) %>
     <h1>Available Currencies</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Exchange Rate</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% currencies.forEach(currency => { %>
-            <tr>
-                <td><%= currency.code %></td>
-                <td><%= currency.name %></td>
-                <td><%= currency.rate %></td>
-            </tr>
-            <% }) %>
-        </tbody>
-    </table>
+
+    <div class="currency-converter">
+        <div class="input-group">
+            <!-- Input for decimal value -->
+            <input type="number" id="amount" placeholder="Enter amount">
+ 
+        <div class="custom-dropdown" id="from-currency-dropdown">
+            <div class="selected">
+                <img src="svgs/eu.svg" alt="EUR Flag">
+                <span>EUR</span>
+            </div>
+            <ul class="dropdown-list">
+                <% currencies.forEach(currency => { %>
+                    <li data-flag="<%= currency.countryCode %>" data-value="<%= currency.code %>">
+                        <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><%= currency.code %> - <%= currency.name %>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+
+        <div class="custom-dropdown" id="to-currency-dropdown">
+            <div class="selected">
+                <img src="svgs/eu.svg" alt="EUR Flag">
+                <span>EUR</span>
+            </div>
+            <ul class="dropdown-list">
+                <% currencies.forEach(currency => { %>
+                    <li data-flag="<%= currency.countryCode %>" data-value="<%= currency.code %>">
+                        <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><%= currency.code %> - <%= currency.name %>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+
+        <button id="convert-btn">Convert</button> 
+    </div>
+    
+
 </body>
 </html>
 <script src="https://kit.fontawesome.com/7d24bb24b2.js" crossorigin="anonymous"></script>
+<!-- Include the JavaScript at the bottom to handle dropdown logic -->
+<script>
+    // Handle dropdown toggle on click
+    const dropdowns = document.querySelectorAll('.custom-dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const selected = dropdown.querySelector('.selected');
+        const list = dropdown.querySelector('.dropdown-list');
+
+        selected.addEventListener('click', () => {
+            // Toggle visibility of the dropdown list
+            list.classList.toggle('show');
+        });
+
+        // Handle selection of an item
+        const items = dropdown.querySelectorAll('li');
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const selectedCurrency = item.getAttribute('data-value');
+                const selectedFlag = item.getAttribute('data-flag');
+                const selectedText = item.textContent.trim();
+
+                // Update the selected item display
+                selected.innerHTML = `<img src="svgs/${selectedFlag}.svg" alt="${selectedCurrency} Flag"> ${selectedText}`;
+
+                // Close the dropdown after selection
+                list.classList.remove('show');
+            });
+        });
+    });
+
+    // Close dropdowns if clicked outside
+    document.addEventListener('click', (e) => {
+        const isDropdown = e.target.closest('.custom-dropdown');
+        if (!isDropdown) {
+            document.querySelectorAll('.dropdown-list.show').forEach(list => {
+                list.classList.remove('show');
+            });
+        }
+    });
+</script>
