@@ -6,19 +6,17 @@ import CurrencyService from './services/currencyService.js';
 const PORT = config.port
 const app = express() 
 
-app.set('view engine', 'ejs') // Define ejs as the view engine
-app.set('views', './views') // Set directory where view files are 
+app.set('view engine', 'ejs') // define ejs as the view engine
+app.set('views', './views') // set directory where view files are 
 
-// Initialise the currency service and repository
-const currencyService = new CurrencyService()
-const currencyRepo = new CurrencyRepository(currencyService)
+app.use(express.static('public')); // use static files such as CSS in the web app from the 'public' folder
+
+const currencyService = new CurrencyService() // initialise the currency service
+const currencyRepo = new CurrencyRepository(currencyService) // initialise the currency repo using the currency service
 
 // Home route
 app.get('/', async (req, res) => {
   try {
-    // Initialise the repository which fetches data from the CurrencyService
-    await currencyRepo.initialize();
-    
     // get all available currencies
     const currencies = currencyRepo.findAll();
 
@@ -52,6 +50,9 @@ app.get('/charts', async (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
+app.listen(PORT, async (req, res) => {
   console.log(`Server running at http://localhost:${PORT}/`);
+
+    // Initialise the repository to fetch all of the currency data via the currency service
+    await currencyRepo.initialise();
 });

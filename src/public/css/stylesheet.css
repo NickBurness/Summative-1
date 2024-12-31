@@ -1,0 +1,75 @@
+/* General CSS Reset */
+body, h1, h2, h3, p, a, ul, li, nav, header {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #003300;
+    color: #CCFFCC;
+    height: 10vh;
+    max-height: 100px;
+    min-height: 50px;
+    width: 100%;
+}
+
+.navbar-logo {
+    margin-right: 20px; /* Add space between logo and links */
+}
+
+.navbar-logo a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #CCFFCC;
+    font-weight: bold;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #66CC66;
+    padding: 20px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    background-color: #66CC66;
+    color: #003300;
+}
+
+.navbar-links .active {
+    background-color: #66CC66;
+    color: #003300;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-logo {
+        margin-bottom: 10px;
+    }
+
+    .navbar-links {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .navbar-links a {
+        padding: 10px;
+    }
+}

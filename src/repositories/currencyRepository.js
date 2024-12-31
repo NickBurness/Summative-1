@@ -6,7 +6,7 @@ class CurrencyRepository {
         this.currencies = [];
     }
 
-    async initialize() {
+    async initialise() {
         try {
             // Fetch both sets of data in parallel using methods from currencyService.js
             const [currencyDetails, exchangeRates] = await Promise.all([
