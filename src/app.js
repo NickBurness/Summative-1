@@ -7,34 +7,38 @@ import config from './config/config.js';
 import express from 'express';
 import axios from 'axios';  // Import axios
 
+import CurrencyRepository from './repositories/currencyRepository.js';
+import CurrencyService from './services/currencyService.js';
+
 const PORT = config.port // access environment variables
 const app = express()
 
+// Initialise the currency service and repository
+const currencyService = new CurrencyService();
+const currencyRepo = new CurrencyRepository(currencyService);
+
+// Home route
 app.get('/', async (req, res) => {
   try {
-    // Make a request to the 3rd party API to get the rates for all available countries
-    const response = await axios.get(config.baseUrl, {
-      headers: {
-        'apikey': config.apiKey,
-      },
-    });
+    // Initialize the repository which fetches data from the CurrencyService
+    await currencyRepo.initialize();
 
-    // Log the response data to the console
-    console.log('API Response:', response.data);
+    // Example usage: Get all currencies
+    const currencies = currencyRepo.findAll();
 
-    // Set the rates in session storage or send back to the client
-    // Example: res.json(response.data); or store the data in session
-    res.send('Hello, Express! API call completed.');
+    // Log the currencies to verify
+    console.log('Currencies:', currencies);
 
+    // Send a response back to the client (you could also render data in a template or send JSON)
+    res.json(currencies);  // Sending the list of currencies back as JSON
+    
   } catch (error) {
-    console.error('Error during API request:', error);
+    console.error('Error during API request or repository initialization:', error);
     res.status(500).send('Error occurred during API request');
   }
 });
 
-
-
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`)
+  console.log(`Server running at http://localhost:${PORT}/`);
 });
-

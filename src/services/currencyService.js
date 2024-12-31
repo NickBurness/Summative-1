@@ -13,7 +13,7 @@ class CurrencyService {
     async getCurrencyDetails() {
         // construct call to the freecurrencyapi and a get a lit of all of the available currencies and their metadata
         const response = await fetch(
-            `${this.baseUrl}/currencies?apikey=${this.apiKey}`
+            `${this.baseUrl}/currencies?apikey=${this.apiKey}&currencies=`
         );
 
         // if an error is encountered, throw the error with a detail of the response
@@ -29,7 +29,7 @@ class CurrencyService {
     async getExchangeRates() {
         // construct call to the freecurrencyapi and get a list of all of the latest exchange rates
         const response = await fetch(
-            `${this.baseUrl}/latest?apikey=${this.apiKey}`
+            `${this.baseUrl}/latest?apikey=${this.apiKey}&currencies=`
         );
 
         // if an error is encountered, throw the error with a detail of the response
