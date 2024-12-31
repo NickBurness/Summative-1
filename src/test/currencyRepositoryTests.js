@@ -26,7 +26,7 @@ describe('CurrencyRepository.js', () => {
             EUR: 0.85
         });
 
-        await repository.initialize();
+        await repository.initialise();
 
         expect(repository.count()).to.equal(2);
         expect(repository.findByCode('USD')).to.deep.include({
@@ -53,7 +53,7 @@ describe('CurrencyRepository.js', () => {
             GBP: 0.73
         });
 
-        await repository.initialize();
+        await repository.initialise();
         const result = repository.findByRateRange(0.8, 0.9);
         
         expect(result).to.have.lengthOf(1);
