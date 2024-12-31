@@ -1,16 +1,9 @@
-// filename: app.js
-// purpose: Entry point of the application 
-// const config = require('../src/config/config');
-// const express = require('express') // use express a minimalist framework for Node.js
-
 import config from './config/config.js';
 import express from 'express';
-import axios from 'axios';  // Import axios
-
 import CurrencyRepository from './repositories/currencyRepository.js';
 import CurrencyService from './services/currencyService.js';
 
-const PORT = config.port // access environment variables
+const PORT = config.port
 const app = express()
 
 // Initialise the currency service and repository
