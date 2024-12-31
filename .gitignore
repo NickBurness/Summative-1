@@ -1,6 +1,6 @@
 *.pdf
 ./vs
-/node_modules
+src/node_modules
 
 # ignore any .env file
 *.env

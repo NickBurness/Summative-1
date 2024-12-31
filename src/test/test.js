@@ -1,17 +1,14 @@
-var assert = require('assert');
-const config = require('../config/config');
+import assert from 'assert'
+import dotenv from 'dotenv'
+import config from '../config/config.js'
 
-describe('Array', function () {
-  describe('#indexOf()', function () {
-    it('should return -1 when the value is not present', function () {
-      assert.equal([1, 2, 3].indexOf(4), -1);
-    });
-  });
+// Load environment variables before running tests
+before(() => {
+  dotenv.config(); // Ensure dotenv loads the .env file
+});
 
-  describe("Configuration Tests", function () {
-    it('Should read from .env file securely', function () {
-      message = config.test
-      assert.equal(message, 'This is a value purely for unit tests')
-    })
+describe("Configuration Tests", function () {
+  it('Should read from .env file securely', function () {
+    assert.equal(config.test, 'This is a value purely for unit tests')
   })
 });

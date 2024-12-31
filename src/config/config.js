@@ -1,8 +1,10 @@
-require('dotenv').config();
+import dotenv from 'dotenv'
 
-module.exports = {
+dotenv.config();
+
+export default {
     apiKey: process.env.API_KEY,
-    baseUrl: 'replace with url for the desired 3rd party api',
+    baseUrl: 'https://api.freecurrencyapi.com/v1/latest', // free currency api base url
     port: process.env.PORT,
     test: process.env.TEST
 };

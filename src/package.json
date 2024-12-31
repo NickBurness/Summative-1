@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "project assignment for uni",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "mocha",
     "start": "node app.js"
@@ -19,7 +20,8 @@
   "homepage": "https://github.com/NickBurness/Summative-1#readme",
   "devDependencies": {
     "chai": "^5.1.2",
-    "mocha": "^11.0.1"
+    "mocha": "^11.0.1",
+    "sinon": "^19.0.2"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
