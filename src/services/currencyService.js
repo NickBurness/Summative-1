@@ -7,7 +7,6 @@ class CurrencyService {
         this.baseUrl = config.baseUrl;
     }
 
-
     // this method attempts to call the 3rd party api and returns a json response 
     // with general information on all of the available currencies such as the code, symbol, name etc.
     async getCurrencyDetails() {

@@ -8,12 +8,13 @@ class CurrencyRepository {
 
     async initialize() {
         try {
-            // Fetch both sets of data in parallel from the currency 
+            // Fetch both sets of data in parallel using methods from currencyService.js
             const [currencyDetails, exchangeRates] = await Promise.all([
                 this.apiService.getCurrencyDetails(),
                 this.apiService.getExchangeRates()
             ]);
 
+            // map exchange rates and currency detail to populate currency.js model
             this.currencies = Object.entries(currencyDetails).map(([code, details]) => {
                 return new Currency(
                     code,
@@ -21,8 +22,10 @@ class CurrencyRepository {
                     exchangeRates[code] || null
                 );
             });
+        
+        // if any errors are encountered in the process, throw error and detail of the error
         } catch (error) {
-            throw new Error(`Repository initialization failed: ${error.message}`);
+            throw new Error(`Repository initialisation failed: ${error.message}`);
         }
     }
 
