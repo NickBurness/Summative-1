@@ -19,7 +19,7 @@ body, h1, h2, h3, p, a, ul, li, nav, header {
 }
 
 .navbar-logo {
-    margin-right: 20px; /* Add space between logo and links */
+    margin-right: 50px; /* Add space between logo and links */
 }
 
 .navbar-logo a {
@@ -56,8 +56,11 @@ body, h1, h2, h3, p, a, ul, li, nav, header {
 /* Responsive Design */
 @media (max-width: 768px) {
     .navbar {
+        height: 20vh;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        max-height: 200px;
+        min-height: 0px;
     }
 
     .navbar-logo {

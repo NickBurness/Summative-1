@@ -49,6 +49,23 @@ app.get('/charts', async (req, res) => {
   }
 });
 
+// Rates route 
+app.get('/rates', async (req, res) => {
+  try {
+    // to be implemented
+    const currencies = currencyRepo.findAll();
+
+    // Log the currencies to verify
+    console.log('Currencies:', currencies);
+
+    // render EJS template and pass the currencies data with the request
+    res.render('rates', { currencies});
+
+  } catch (error) {
+    console.error("Error during API request of repository initialisation", error)
+  }
+});
+
 // Start the server
 app.listen(PORT, async (req, res) => {
   console.log(`Server running at http://localhost:${PORT}/`);
