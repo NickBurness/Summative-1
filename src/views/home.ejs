@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currency List</title>
-    <!-- Import custom stylesheet -->
+    <title>Currency Converter</title>
     <link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
 </head>
 <body>
@@ -13,97 +12,124 @@
 
     <div class="currency-converter">
         <div class="input-group">
-            <!-- Input for the Amount-->
             <div class="amount-input">
                 <span id="currency-symbol">$</span>
                 <input type="number" id="amount" placeholder="Enter amount">
-               
             </div>
- 
-            <!-- List for the From currency -->
+
             <div class="custom-dropdown" id="from-currency-dropdown">
                 <div class="selected">
                     <img src="svgs/us.svg" alt="USD Flag">
-                    <span>USD - US Dollar</span>
+                    <span>USD</span> - <span>US Dollar</span>
                 </div>
                 <ul class="dropdown-list">
                     <% currencies.forEach(currency => { %>
-                        <li data-flag="<%= currency.countryCode %>" data-symbol="<%= currency.symbol %>" data-value="<%= currency.code %>">
-                            <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><%= currency.code %> - <%= currency.name %>
+                        <li data-flag="<%= currency.countryCode %>" data-name="<%= currency.name %>" data-symbol="<%= currency.symbol %>" data-value="<%= currency.code %>" data-rate="<%= currency.rate %>">
+                            <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><span><%= currency.code %></span> - <span><%= currency.name %></span>
                         </li>
                     <% }) %>
                 </ul>
             </div>
 
-            <!-- List for the To currency -->
             <div class="custom-dropdown" id="to-currency-dropdown">
                 <div class="selected">
                     <img src="svgs/eu.svg" alt="EUR Flag">
-                    <span>EUR - Euro</span>
+                    <span>EUR</span> - <span>Euro</span>
                 </div>
                 <ul class="dropdown-list">
                     <% currencies.forEach(currency => { %>
-                        <li data-flag="<%= currency.countryCode %>" data-value="<%= currency.code %>">
-                            <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><%= currency.code %> - <%= currency.name %>
+                        <li data-flag="<%= currency.countryCode %>" data-name="<%= currency.name %>" data-symbol="<%= currency.symbol %>" data-value="<%= currency.code %>" data-rate="<%= currency.rate %>">
+                            <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><span><%= currency.code %></span> - <span><%= currency.name %></span>
                         </li>
                     <% }) %>
                 </ul>
             </div>
         </div>
 
-        <!-- Results of currency conversion to go here -->
-        <button id="convert-btn">Convert</button> 
+        <button id="convert-btn">Convert</button>
+        <div id="result"></div>
     </div>
+    <!-- Import font awesome webkit for the placeholder site logo -->
+    <script src="https://kit.fontawesome.com/7d24bb24b2.js" crossorigin="anonymous"></script>
+    <script type="module">
+    // import currency converter algorithm from available scripts
+    import { convertCurrency } from '/js/currencyConverter.js';
 
-    
-
-</body>
-</html>
-<script src="https://kit.fontawesome.com/7d24bb24b2.js" crossorigin="anonymous"></script>
-<!-- Include the JavaScript at the bottom to handle dropdown logic -->
-<script>
-   // Handle dropdown toggle on click
+    // Handle dropdown toggle on click
     const dropdowns = document.querySelectorAll('.custom-dropdown');
-
     dropdowns.forEach(dropdown => {
         const selected = dropdown.querySelector('.selected');
         const list = dropdown.querySelector('.dropdown-list');
 
         selected.addEventListener('click', () => {
-            // Toggle visibility of the dropdown list
+            // Make dropdown list visible
             list.classList.toggle('show');
         });
 
-        // Handle selection of an item
-        const items = dropdown.querySelectorAll('li');
-        items.forEach(item => {
-            item.addEventListener('click', () => {
-                const selectedCurrency = item.getAttribute('data-value');
-                const selectedFlag = item.getAttribute('data-flag');
-                const selectedText = item.textContent.trim();
-                const selectedSymbol = item.getAttribute('data-symbol');
+    // Handle selection of an item
+    const items = dropdown.querySelectorAll('li');
+    items.forEach(item => {
+        item.addEventListener('click', () => {
 
-                // Update the selected item display
-                selected.innerHTML = `<img src="svgs/${selectedFlag}.svg" alt="${selectedCurrency} Flag"> ${selectedText}`;
+            const selectedCurrency = item.getAttribute('data-value'); // Get the currency code
+            const selectedFlag = item.getAttribute('data-flag'); // Get the currency flag
+            const selectedSymbol = item.getAttribute('data-symbol'); // Get the currency symbol
+            const selectedText = item.querySelector('span:nth-child(2)').textContent.trim(); // Get the currency code
+            const selectedName = item.querySelector('span:nth-child(3)').textContent.trim(); // Get the currency name
 
-                // Update the currency symbol next to the amount input
-                if (dropdown.id === 'from-currency-dropdown') {
-                    document.getElementById('currency-symbol').textContent = selectedSymbol;
-                }
+            // Update the selected item display using gathered values
+            selected.innerHTML = `<img src="svgs/${selectedFlag}.svg" alt="${selectedCurrency} Flag"> <span>${selectedCurrency}</span> - <span>${selectedName}</span>`;
 
-                // Close the dropdown after selection
-                list.classList.remove('show');
-            });
+            // Update the currency symbol next to the amount input
+            if (dropdown.id === 'from-currency-dropdown') {
+                document.getElementById('currency-symbol').textContent = selectedSymbol;
+            }
+
+            // Close the dropdown after selection
+            list.classList.remove('show');
         });
     });
+});
 
-    // Close dropdowns if clicked outside
-    document.addEventListener('click', (e) => {
-        const isDropdown = e.target.closest('.custom-dropdown');
-        if (!isDropdown) {
-            document.querySelectorAll('.dropdown-list.show').forEach(list => {
-                list.classList.remove('show');
-            });
-        }
-    });
-</script>
+// Close dropdowns if clicked outside
+document.addEventListener('click', (e) => {
+    const isDropdown = e.target.closest('.custom-dropdown');
+    if (!isDropdown) {
+        document.querySelectorAll('.dropdown-list.show').forEach(list => {
+            list.classList.remove('show');
+        });
+    }
+});
+
+// Handle currency conversion on the client side using the available rates passed to the view engine by the app
+document.getElementById('convert-btn').addEventListener('click', () => {
+    // ensure user input is a number
+    const amount = parseFloat(document.getElementById('amount').value);
+
+    const fromCurrencyElement = document.querySelector('#from-currency-dropdown .selected span:nth-child(2)');
+    const toCurrencyElement = document.querySelector('#to-currency-dropdown .selected span:nth-child(2)');
+
+    const fromCurrency = fromCurrencyElement.textContent;
+    const toCurrency = toCurrencyElement.textContent;
+
+    // get the currency rates from metadata of elements for currency selections on the page
+    const fromRate = document.querySelector(`#from-currency-dropdown .dropdown-list li[data-value="${fromCurrency}"]`).getAttribute('data-rate');
+    const toRate = document.querySelector(`#to-currency-dropdown .dropdown-list li[data-value="${toCurrency}"]`).getAttribute('data-rate');
+
+    // get the currency names from metadata of elements for currency selections on the page
+    const fromCurrencyName = document.querySelector(`#from-currency-dropdown .dropdown-list li[data-value="${fromCurrency}"]`).getAttribute('data-name');
+    const toCurrencyName = document.querySelector(`#to-currency-dropdown .dropdown-list li[data-value="${toCurrency}"]`).getAttribute('data-name');
+
+    // get the currency symbols from metadata of elements for currency selections on the page
+    const fromSymbol = document.querySelector(`#from-currency-dropdown .dropdown-list li[data-value="${fromCurrency}"]`).getAttribute('data-symbol');
+    const toSymbol = document.querySelector(`#to-currency-dropdown .dropdown-list li[data-value="${toCurrency}"]`).getAttribute('data-symbol');
+
+    // convert amount between any two rates using imported function from currencyConverter.js
+    const convertedAmount = convertCurrency(amount, fromRate, toRate);
+
+    // print result to the page
+    document.getElementById('result').textContent = `${fromSymbol}${amount} ${fromCurrencyName} = ${toSymbol}${convertedAmount.toFixed(2)} ${toCurrencyName}`;
+});
+    </script>
+</body>
+</html>

@@ -32,6 +32,32 @@ app.get('/', async (req, res) => {
   }
 });
 
+// Conversion route (Called by AJAX from the '/' page by User when doing a currency conversion request)
+app.get('/convert', async (req, res) => {
+  const { amount, fromCurrency, toCurrency } = req.query;
+
+  try {
+      // Fetch the latest exchange rates
+      const rates = await currencyService.getExchangeRates();
+
+      // Calculate the converted amount
+      let convertedAmount;
+      if (fromCurrency === 'USD') {
+          convertedAmount = amount * rates[toCurrency];
+      } else if (toCurrency === 'USD') {
+          convertedAmount = amount / rates[fromCurrency];
+      } else {
+          const amountInUSD = amount / rates[fromCurrency];
+          convertedAmount = amountInUSD * rates[toCurrency];
+      }
+
+      res.json({ convertedAmount });
+  } catch (error) {
+      console.error('Error during conversion:', error);
+      res.status(500).send('Error occurred during conversion');
+  }
+});
+
 // Charts route 
 app.get('/charts', async (req, res) => {
   try {
