@@ -63,7 +63,8 @@ class CurrencyRepository {
                     code,
                     details.name,
                     exchangeRates[code] || null,
-                    currencyToCountryMap[code] || null
+                    currencyToCountryMap[code] || null,
+                    details.symbol
                 );
             });
             console.log(this.currencies)

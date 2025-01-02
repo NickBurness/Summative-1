@@ -5,7 +5,7 @@ body, h1, h2, h3, p, a, ul, li, nav, header {
     box-sizing: border-box;
 }
 
-/* Navbar Styling */
+/* Navbar Styles */
 .navbar {
     display: flex;
     align-items: center;
@@ -67,36 +67,28 @@ header {
     text-align: center;
 }
 
-/* General body and header styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #333;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
+h1 { 
+    color: #003300;
+    margin-top: 25px;
+    margin-left: 25px;
 }
 
 /* Currency Converter Container */
 .currency-converter {
-    width: 100%;
-    max-width: 1200px; 
-    margin: 25px auto;
-    padding: 10px;
-    box-sizing: border-box;
-    background-color: #f4f4f4;
+    margin: 10px 25px 0px 25px;
+    padding: 20px 20px 100px 20px;
+    border: 1px solid #003300;
+    background-color: #CCFFCC;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+}
+
+.currency-converter input {
+    width: 100%;
 }
 
 .currency-converter select {
-    width: 100%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
@@ -110,72 +102,52 @@ header {
     padding-left: 30px; /* Add space for the flag image */
 }
 
-
 /* Flexbox layout for inputs */
 .currency-converter .input-group {
     display: flex;
     gap: 15px;
-    flex-wrap: wrap; /* Ensures inputs wrap on smaller screens */
+    flex-direction: row; /* Lay inputs out horizontally on the page */
+}
+
+/* Style placeholder text in inputs */
+::placeholder {
+    color: #003300;
 }
 
 .currency-converter input,
 .currency-converter select {
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ddd;
+    border: 1px solid #003300;
     border-radius: 5px;
-    flex: 1; /* Makes the inputs grow to fill available space */
-    min-width: 150px; /* Ensures they don't get too small on smaller screens */
-}
-
-/* Remove the stepper from number input */
-.currency-converter input[type="number"]::-webkit-outer-spin-button,
-.currency-converter input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Specific input field style for decimal value */
-.currency-converter input[type="number"] {
-    -webkit-appearance: none; /* Removes stepper in WebKit browsers */
-    -moz-appearance: textfield; /* Removes stepper in Firefox */
+    background-color: #66CC66;
+    color: #003300;
+    justify-content: space-between;
 }
 
 /* Style for the convert button */
 .currency-converter button {
-    background-color: #28a745;
+    background-color: #003300;
     color: white;
     border: none;
     cursor: pointer;
     padding: 12px 20px;
     font-size: 16px;
     border-radius: 5px;
-    margin-top: 20px; /* Adds space above the button */
-    align-self: flex-start; /* Aligns the button to the left */
+    margin-top: 20px; /* Add space above the button */
+    align-self: flex-end; /* Aligns button to the right */
 }
 
 .currency-converter button:hover {
     background-color: #218838;
 }
 
-
-/* General styles */
-.currency-converter {
-    width: 300px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
 .custom-dropdown {
     position: relative;
-    width: 100%;
+    width: 33%;
     cursor: pointer;
+    background-color: #66CC66;
+    color: #003300;
 }
 
 .selected {
@@ -183,9 +155,9 @@ header {
     align-items: center;
     gap: 10px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #003300;
     border-radius: 5px;
-    background: #fff;
+    background: #66CC66;
 }
 
 .selected img {
@@ -201,7 +173,7 @@ header {
     margin: 0;
     padding: 0;
     list-style: none;
-    border: 1px solid #ccc;
+    border: 1px solid #003300;
     border-radius: 5px;
     background: #fff;
     display: none;
@@ -223,78 +195,43 @@ header {
 .dropdown-list img {
     width: 20px;
     height: 20px;
-}
-
-/* General styles */
-.currency-converter {
-    width: 300px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.custom-dropdown {
-    position: relative;
-    width: 100%;
-    cursor: pointer;
-}
-
-.selected {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #fff;
-}
-
-.selected img {
-    width: 20px;
-    height: 20px;
-}
-
-.dropdown-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: #fff;
-    display: none;
-    z-index: 1000;
 }
 
 .dropdown-list.show {
     display: block;
 }
 
-.dropdown-list li {
+/* Browser based CSS resets */
+.currency-converter input[type="number"]::-webkit-outer-spin-button,
+.currency-converter input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.currency-converter input[type="number"] {
+    -webkit-appearance: none; /* Removes stepper in WebKit browsers */
+    -moz-appearance: textfield; /* Removes stepper in Firefox */
+}
+
+.amount-input {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
-    cursor: pointer;
+    gap: 5px;
+    width: 33%;
+    position: relative;
 }
 
-.dropdown-list li:hover {
-    background: #f0f0f0;
+#currency-symbol {
+    font-size: 16px;
+    color: #003300;
+    position: absolute;
+    left: 10px;
+    text-align: center;
 }
 
-.dropdown-list img {
-    width: 20px;
-    height: 20px;
+.amount-input input {
+    padding-left: 45px; /* Padding to layout the currency symbol */
 }
-
 
 /* Mobile View */
 @media (max-width: 768px) {
@@ -328,8 +265,17 @@ header {
         gap: 10px;
     }
 
-    .currency-converter input,
-    .currency-converter select {
-        width: 100%; /* Makes inputs full-width on small screens */
+    .currency-converter input {
+        width: 100%;
+    }
+
+    .custom-dropdown {
+        position: relative;
+        width: 100%;
+    }
+
+    /* Amount input with currency symbol */
+    .amount-input {
+        width: 100%;
     }
 }
