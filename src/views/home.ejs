@@ -13,9 +13,14 @@
 
     <div class="currency-converter">
         <div class="input-group">
-            <!-- Input for decimal value -->
-            <input type="number" id="amount" placeholder="Enter amount">
+            <!-- Input for the Amount-->
+            <div class="amount-input">
+                <span id="currency-symbol">$</span>
+                <input type="number" id="amount" placeholder="Enter amount">
+               
+            </div>
  
+            <!-- List for the From currency -->
             <div class="custom-dropdown" id="from-currency-dropdown">
                 <div class="selected">
                     <img src="svgs/us.svg" alt="USD Flag">
@@ -23,13 +28,14 @@
                 </div>
                 <ul class="dropdown-list">
                     <% currencies.forEach(currency => { %>
-                        <li data-flag="<%= currency.countryCode %>" data-value="<%= currency.code %>">
+                        <li data-flag="<%= currency.countryCode %>" data-symbol="<%= currency.symbol %>" data-value="<%= currency.code %>">
                             <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><%= currency.code %> - <%= currency.name %>
                         </li>
                     <% }) %>
                 </ul>
             </div>
 
+            <!-- List for the To currency -->
             <div class="custom-dropdown" id="to-currency-dropdown">
                 <div class="selected">
                     <img src="svgs/eu.svg" alt="EUR Flag">
@@ -44,8 +50,8 @@
                 </ul>
             </div>
         </div>
-        <!-- Results of currency conversion to go here -->
 
+        <!-- Results of currency conversion to go here -->
         <button id="convert-btn">Convert</button> 
     </div>
 
@@ -56,7 +62,7 @@
 <script src="https://kit.fontawesome.com/7d24bb24b2.js" crossorigin="anonymous"></script>
 <!-- Include the JavaScript at the bottom to handle dropdown logic -->
 <script>
-    // Handle dropdown toggle on click
+   // Handle dropdown toggle on click
     const dropdowns = document.querySelectorAll('.custom-dropdown');
 
     dropdowns.forEach(dropdown => {
@@ -75,9 +81,15 @@
                 const selectedCurrency = item.getAttribute('data-value');
                 const selectedFlag = item.getAttribute('data-flag');
                 const selectedText = item.textContent.trim();
+                const selectedSymbol = item.getAttribute('data-symbol');
 
                 // Update the selected item display
                 selected.innerHTML = `<img src="svgs/${selectedFlag}.svg" alt="${selectedCurrency} Flag"> ${selectedText}`;
+
+                // Update the currency symbol next to the amount input
+                if (dropdown.id === 'from-currency-dropdown') {
+                    document.getElementById('currency-symbol').textContent = selectedSymbol;
+                }
 
                 // Close the dropdown after selection
                 list.classList.remove('show');

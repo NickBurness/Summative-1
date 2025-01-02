@@ -67,24 +67,10 @@ header {
     text-align: center;
 }
 
-/* General body and header styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #333;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-}
-
 h1 { 
-    color:#003300;
+    color: #003300;
     margin-top: 25px;
-    margin-left: 25px
+    margin-left: 25px;
 }
 
 /* Currency Converter Container */
@@ -99,7 +85,7 @@ h1 {
 }
 
 .currency-converter input {
-    width: 33%;
+    width: 100%;
 }
 
 .currency-converter select {
@@ -116,7 +102,6 @@ h1 {
     padding-left: 30px; /* Add space for the flag image */
 }
 
-
 /* Flexbox layout for inputs */
 .currency-converter .input-group {
     display: flex;
@@ -124,9 +109,9 @@ h1 {
     flex-direction: row; /* Lay inputs out horizontally on the page */
 }
 
-/* style placeholder text in inputs */
+/* Style placeholder text in inputs */
 ::placeholder {
-    color:#003300;
+    color: #003300;
 }
 
 .currency-converter input,
@@ -162,7 +147,7 @@ h1 {
     width: 33%;
     cursor: pointer;
     background-color: #66CC66;
-    color:#003300;
+    color: #003300;
 }
 
 .selected {
@@ -216,12 +201,37 @@ h1 {
     display: block;
 }
 
-.selected img {
-    width: 20px;
-    height: 20px;
+/* Browser based CSS resets */
+.currency-converter input[type="number"]::-webkit-outer-spin-button,
+.currency-converter input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
+.currency-converter input[type="number"] {
+    -webkit-appearance: none; /* Removes stepper in WebKit browsers */
+    -moz-appearance: textfield; /* Removes stepper in Firefox */
+}
 
+.amount-input {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 33%;
+    position: relative;
+}
+
+#currency-symbol {
+    font-size: 16px;
+    color: #003300;
+    position: absolute;
+    left: 10px;
+    text-align: center;
+}
+
+.amount-input input {
+    padding-left: 45px; /* Padding to layout the currency symbol */
+}
 
 /* Mobile View */
 @media (max-width: 768px) {
@@ -256,7 +266,7 @@ h1 {
     }
 
     .currency-converter input {
-        width: auto;
+        width: 100%;
     }
 
     .custom-dropdown {
@@ -264,17 +274,8 @@ h1 {
         width: 100%;
     }
 
-
-}
-
-/* Browser based CSS resets */
-.currency-converter input[type="number"]::-webkit-outer-spin-button,
-.currency-converter input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.currency-converter input[type="number"] {
-    -webkit-appearance: none; /* Removes stepper in WebKit browsers */
-    -moz-appearance: textfield; /* Removes stepper in Firefox */
+    /* Amount input with currency symbol */
+    .amount-input {
+        width: 100%;
+    }
 }
