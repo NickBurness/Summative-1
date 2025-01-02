@@ -128,7 +128,7 @@ h1 {
 /* Style for the convert button */
 .currency-converter button {
     background-color: #003300;
-    color: white;
+    color: #CCFFCC;
     border: none;
     cursor: pointer;
     padding: 12px 20px;
@@ -231,6 +231,12 @@ h1 {
 
 .amount-input input {
     padding-left: 45px; /* Padding to layout the currency symbol */
+}
+
+#result { 
+    color:#003300;
+    font-weight: bold;
+    font-size: x-large;
 }
 
 /* Mobile View */
