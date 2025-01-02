@@ -9,43 +9,46 @@
 </head>
 <body>
     <%- include('partials/navbar', { activePage: '' }) %>
-    <h1>Available Currencies</h1>
+    <h1>Currency Converter</h1>
 
     <div class="currency-converter">
         <div class="input-group">
             <!-- Input for decimal value -->
             <input type="number" id="amount" placeholder="Enter amount">
  
-        <div class="custom-dropdown" id="from-currency-dropdown">
-            <div class="selected">
-                <img src="svgs/eu.svg" alt="EUR Flag">
-                <span>EUR</span>
+            <div class="custom-dropdown" id="from-currency-dropdown">
+                <div class="selected">
+                    <img src="svgs/us.svg" alt="USD Flag">
+                    <span>USD - US Dollar</span>
+                </div>
+                <ul class="dropdown-list">
+                    <% currencies.forEach(currency => { %>
+                        <li data-flag="<%= currency.countryCode %>" data-value="<%= currency.code %>">
+                            <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><%= currency.code %> - <%= currency.name %>
+                        </li>
+                    <% }) %>
+                </ul>
             </div>
-            <ul class="dropdown-list">
-                <% currencies.forEach(currency => { %>
-                    <li data-flag="<%= currency.countryCode %>" data-value="<%= currency.code %>">
-                        <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><%= currency.code %> - <%= currency.name %>
-                    </li>
-                <% }) %>
-            </ul>
-        </div>
 
-        <div class="custom-dropdown" id="to-currency-dropdown">
-            <div class="selected">
-                <img src="svgs/eu.svg" alt="EUR Flag">
-                <span>EUR</span>
+            <div class="custom-dropdown" id="to-currency-dropdown">
+                <div class="selected">
+                    <img src="svgs/eu.svg" alt="EUR Flag">
+                    <span>EUR - Euro</span>
+                </div>
+                <ul class="dropdown-list">
+                    <% currencies.forEach(currency => { %>
+                        <li data-flag="<%= currency.countryCode %>" data-value="<%= currency.code %>">
+                            <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><%= currency.code %> - <%= currency.name %>
+                        </li>
+                    <% }) %>
+                </ul>
             </div>
-            <ul class="dropdown-list">
-                <% currencies.forEach(currency => { %>
-                    <li data-flag="<%= currency.countryCode %>" data-value="<%= currency.code %>">
-                        <img src="svgs/<%= currency.countryCode %>.svg" alt="<%= currency.code %> Flag"><%= currency.code %> - <%= currency.name %>
-                    </li>
-                <% }) %>
-            </ul>
         </div>
+        <!-- Results of currency conversion to go here -->
 
         <button id="convert-btn">Convert</button> 
     </div>
+
     
 
 </body>
