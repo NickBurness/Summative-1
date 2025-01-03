@@ -8,9 +8,9 @@
 </head>
 <body>
     <%- include('partials/navbar', { activePage: '' }) %>
-    <h1>Currency Converter</h1>
 
     <div class="currency-converter">
+        <h1 class="currency-converter-title">Currency Converter</h1>
         <div class="input-group">
             <div class="amount-input">
                 <span id="currency-symbol">$</span>
@@ -128,7 +128,7 @@ document.getElementById('convert-btn').addEventListener('click', () => {
     const convertedAmount = convertCurrency(amount, fromRate, toRate);
 
     // print result to the page
-    document.getElementById('result').textContent = `${fromSymbol}${amount} ${fromCurrencyName} = ${toSymbol}${convertedAmount.toFixed(2)} ${toCurrencyName}`;
+    document.getElementById('result').textContent = `${fromSymbol}${document.getElementById('amount').value} ${fromCurrencyName} = ${toSymbol}${convertedAmount.toFixed(2)} ${toCurrencyName}`;
 });
     </script>
 </body>

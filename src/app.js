@@ -3,6 +3,7 @@ import express from 'express';
 import CurrencyRepository from './repositories/currencyRepository.js';
 import CurrencyService from './services/currencyService.js';
 
+
 const PORT = config.port
 const app = express() 
 
@@ -14,7 +15,7 @@ app.use(express.static('public')); // use static files such as CSS in the web ap
 const currencyService = new CurrencyService() // initialise the currency service
 const currencyRepo = new CurrencyRepository(currencyService) // initialise the currency repo using the currency service
 
-// Home route
+// Home Page (also Currency Convert page) route
 app.get('/', async (req, res) => {
   try {
     // get all available currencies
@@ -32,70 +33,31 @@ app.get('/', async (req, res) => {
   }
 });
 
-// Conversion route (Called by AJAX from the '/' page by User when doing a currency conversion request)
-app.get('/convert', async (req, res) => {
-  const { amount, fromCurrency, toCurrency } = req.query;
-
-  try {
-      // Fetch the latest exchange rates
-      const rates = await currencyService.getExchangeRates();
-
-      // Calculate the converted amount
-      let convertedAmount;
-      if (fromCurrency === 'USD') {
-          convertedAmount = amount * rates[toCurrency];
-      } else if (toCurrency === 'USD') {
-          convertedAmount = amount / rates[fromCurrency];
-      } else {
-          const amountInUSD = amount / rates[fromCurrency];
-          convertedAmount = amountInUSD * rates[toCurrency];
-      }
-
-      res.json({ convertedAmount });
-  } catch (error) {
-      console.error('Error during conversion:', error);
-      res.status(500).send('Error occurred during conversion');
-  }
-});
-
-// Charts route 
-app.get('/charts', async (req, res) => {
-  try {
-    // to be implemented
-    const currencies = currencyRepo.findAll();
-
-    // Log the currencies to verify
-    console.log('Currencies:', currencies);
-
-    // render EJS template and pass the currencies data with the request
-    res.render('charts', { currencies});
-
-  } catch (error) {
-    console.error("Error during API request of repository initialisation", error)
-  }
-});
-
-// Rates route 
+// Latest Rates route 
 app.get('/rates', async (req, res) => {
   try {
-    // to be implemented
+    // Fetch all currencies
     const currencies = currencyRepo.findAll();
+    const exchangeRates = currencyRepo.exchangeRates;
+    const currencyToCountryMap = currencyRepo.currencyToCountryMap;
 
-    // Log the currencies to verify
+    // Log the currencies and exchange rates to verify
     console.log('Currencies:', currencies);
+    console.log('Exchange Rates:', exchangeRates);
 
-    // render EJS template and pass the currencies data with the request
-    res.render('rates', { currencies});
+    // Render EJS template and pass the currencies, exchange rates, and currencyToCountryMap data with the request
+    res.render('rates', { currencies, exchangeRates, currencyToCountryMap });
 
   } catch (error) {
-    console.error("Error during API request of repository initialisation", error)
+    console.error("Error during API request or repository initialization", error);
+    res.status(500).send('Error fetching currency rates');
   }
 });
 
 // Start the server
 app.listen(PORT, async (req, res) => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+  // Initialise the repository to fetch all of the currency data via the currency service
+  await currencyRepo.initialise();
 
-    // Initialise the repository to fetch all of the currency data via the currency service
-    await currencyRepo.initialise();
+  console.log(`Server running at http://localhost:${PORT}/`);
 });
