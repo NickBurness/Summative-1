@@ -9,26 +9,102 @@
 </head>
 <body>
     <%- include('partials/navbar', { activePage: 'rates' }) %>
-    <h1>Todays Currency Exchange Rates</h1>
-    <p>Note: These conversion rates are based on USD</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Exchange Rate</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% currencies.forEach(currency => { %>
-            <tr>
-                <td><%= currency.code %></td>
-                <td><%= currency.name %></td>
-                <td><%= currency.rate %></td>
-            </tr>
-            <% }) %>
-        </tbody>
-    </table>
+    <h1>Latest Currency Exchange Rates</h1>
+
+    <!-- Search input and button -->
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for a currency by it's code such as GBP...">
+        <button id="search-btn">Search</button>
+    </div>    
+    <div id="search-suggestions" class="search-suggestions"></div>
+
+    <div class="flex-container">
+        <% for (let currency in exchangeRates) { %>
+            <div class="currency-table" id="<%= currency %>">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                <img src="svgs/<%= currencyToCountryMap[currency].toLowerCase() %>.svg" alt="<%= currency %> Flag">
+                                <strong><%= currency %></strong>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Target Currency</th>
+                            <th>Exchange Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let targetCurrency in exchangeRates[currency]) { %>
+                            <tr>
+                                <td><img src="svgs/<%= currencyToCountryMap[targetCurrency] %>.svg" /> - <%= targetCurrency %></td>
+                                <td><%= exchangeRates[currency][targetCurrency].toFixed(4) %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+    </div>
+
+    <!-- Back to top button -->
+    <button id="back-to-top">Back to Top</button>
+
+    <script src="https://kit.fontawesome.com/7d24bb24b2.js" crossorigin="anonymous"></script>
+    <script>
+        // Functionality for the search box
+        const searchInput = document.getElementById('search-input');
+        const searchSuggestions = document.getElementById('search-suggestions');
+        const searchButton = document.getElementById('search-btn');
+
+        searchInput.addEventListener('input', () => {
+            // get user input to search box and transform to upper case
+            const query = searchInput.value.toUpperCase();
+            // start with no suggestions
+            searchSuggestions.innerHTML = '';
+
+            // if there is some user input...
+            if (query) {
+                // determine the entered value is a valid currency code
+                <% for (let currency in exchangeRates) { %>
+                    if ('<%= currency %>'.includes(query)) {
+                        // create html to populate the suggestions-container with results
+                        const suggestion = document.createElement('div');
+                        suggestion.textContent = '<%= currency %>';
+                        suggestion.addEventListener('click', () => {
+                            searchInput.value = '<%= currency %>';
+                            searchSuggestions.innerHTML = '';
+                        });
+                        searchSuggestions.appendChild(suggestion);
+                    }
+                <% } %>
+            }
+        });
+
+        searchButton.addEventListener('click', () => {
+            const searchInputValue = searchInput.value.toUpperCase();
+            const currencyTable = document.getElementById(searchInputValue);
+            if (currencyTable) {
+                currencyTable.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert('Currency not found');
+            }
+        });
+
+        // Functionality for the back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
-<script src="https://kit.fontawesome.com/7d24bb24b2.js" crossorigin="anonymous"></script>
