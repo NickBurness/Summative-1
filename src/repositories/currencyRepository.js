@@ -33,7 +33,7 @@ class CurrencyRepository {
             // Map exchange rates and currency details to populate the currency model
             this.currencies = Object.entries(currencyDetails).map(([code, details]) => {
                 // add information to logs for dev purposes
-                console.log('Mapping currency:', code, 'to country code:', this.currencyToCountryMap[code]);
+                // console.log('Mapping currency:', code, 'to country code:', this.currencyToCountryMap[code]);
                 // yield a new currency object with the necessary data brought in by the custom api service
                 return new Currency(
                     code,
@@ -47,8 +47,8 @@ class CurrencyRepository {
             // Calculate the currency exchange rates for all currencies
             this.exchangeRates = this.calculateExchangeRates(this.currencies);
             // print results to the console to verify work has taken place
-            console.log(this.currencies);
-            console.log(this.exchangeRates);
+            // console.log(this.currencies);
+            // console.log(this.exchangeRates);
 
         // if any error is encountered, throw a new error with a helpful message 
         } catch (error) {
