@@ -76,7 +76,7 @@ The product is intended to help users perform better financial planning, for exa
 The user interface (UI) for the application has been created using Figma, to view the prototype, go to [The Currency Converter App Prototype](https://www.figma.com/design/s0g37ImN1jyZIC76gmTkKC/Currency-Converter) or see snapshots of each designed page from the images below.
 
 - Currency Converter Page (Desktop)  
-![Design for the Currency Converter Page - Desktop](docs\CurrencyConverterDesign-DesktopView.png)  
+![Design for the Currency Converter Page - Desktop](https://github.com/NickBurness/Summative-1/blob/main/docs/CurrencyConverterDesign-DesktopView.png)  
 - Currency Converter Page (Mobile)  
 ![Design for the Currency Converter Page - Mobile](docs\CurrencyConverterDesign-MobileView.png)    
 - Latest Rates Page (Desktop)  
