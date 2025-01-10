@@ -1,4 +1,6 @@
 // this dictionary exists to assist the system with associating the svg images with currency codes using a 2 digit identifier of the country
+// the keys in this dictionary can be mapped to .svg files in the src/public/svgs folder.
+// exportable to different JS files
 export const countryCurrencyMap = {
     eu: "EUR",
     us: "USD",

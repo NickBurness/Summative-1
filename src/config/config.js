@@ -1,3 +1,4 @@
+// dependency that allows secrets files to be created easily in node projects
 import dotenv from 'dotenv'
 
 let environmentFile;
@@ -25,6 +26,7 @@ switch(process.env.NODE_ENV) {
 dotenv.config({path: environmentFile});
 console.log(`Loaded environment variables from: ${environmentFile}`)
 
+// makes the following data importable when config.js is imported into another javascript file
 export default {
     apiKey: process.env.API_KEY,
     baseUrl: 'https://api.freecurrencyapi.com/v1/', // free currency api base url

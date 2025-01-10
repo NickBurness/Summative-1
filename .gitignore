@@ -1,7 +1,14 @@
-*.pdf
+# ignore local files
 ./vs
 src/node_modules
 
-# ignore any .env file
+# ignore any .env files that contain secrets
 *.env
 .env.*
+
+# ignore brief file
+SE Brief 1 Nov 24 1.1.pdf
+
+# igore submission related only files
+links.txt
+readme.md.pdf
