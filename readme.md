@@ -78,15 +78,15 @@ The user interface (UI) for the application has been created using Figma, to vie
 - Currency Converter Page (Desktop)  
 ![Design for the Currency Converter Page - Desktop](https://github.com/NickBurness/Summative-1/blob/main/docs/CurrencyConverterDesign-DesktopView.png)  
 - Currency Converter Page (Mobile)  
-![Design for the Currency Converter Page - Mobile](docs\CurrencyConverterDesign-MobileView.png)    
+![Design for the Currency Converter Page - Mobile](https://github.com/NickBurness/Summative-1/blob/main/docs/CurrencyConverterDesign-MobileView.png)    
 - Latest Rates Page (Desktop)  
-![Design for the Latest Rates Page - Desktop](docs\LatestRatesDesign-DesktopView.png)  
+![Design for the Latest Rates Page - Desktop](https://github.com/NickBurness/Summative-1/blob/main/docs/LatestRatesDesign-DesktopView.png)  
 - Latest Rates Page (Mobile)  
-![Design for the Latest Rates Page - Mobile](docs\LatestRatesDesign-MobileView.png)  
+![Design for the Latest Rates Page - Mobile](https://github.com/NickBurness/Summative-1/blob/main/docs/LatestRatesDesign-MobileView.png)  
 - Charts Page (Desktop)  
-![Design for the Charts Page - Desktop](docs\ChartsDesign-DesktopView.png)  
+![Design for the Charts Page - Desktop](https://github.com/NickBurness/Summative-1/blob/main/docs/ChartsDesign-DesktopView.png)  
 - Charts Page (Mobile)  
-![Design for the Charts Page - Mobile](docs\ChartsDesign-MobileView.png)  
+![Design for the Charts Page - Mobile](https://github.com/NickBurness/Summative-1/blob/main/docs/ChartsDesign-MobileView.png)  
 
 # Project Planning
 ## Requirements Analysis
@@ -99,7 +99,7 @@ The agile philosophy has been applied to this project as a way of building the M
 In regards to testing, a test-driven development (TDD) approach has been carried out, as new features have been developed, so have unit tests to verify the behaviour and functionality.
 ## KANBAN GitHub Projects
 GitHub projects have been used as a ticketing system to manage all activities related to design and development. Visible on the [Currency Converter GitHub Project](https://github.com/users/NickBurness/projects/2) 
- ![GitHub Projects Kanban Board](docs\GitHub-KanbanBoard.png)
+ ![GitHub Projects Kanban Board](https://github.com/NickBurness/Summative-1/blob/main/docs/GitHub-KanbanBoard.png)
 Each ticket has been crafted using the gathered requirements, assigned to the developer with a priority and ticket size applied to the ticket so that sprint velocity can be estimated. 
 
 ## Git Workflow
@@ -109,7 +109,7 @@ The Git workflow adopted for this project is the *Feature Branch* Git workflow. 
 Each custom class or function has been tested using a Test-Driven-Development (TDD) approach.
 To run the Unit tests ensure that you are in the `/src` folder of the repo and run the command `npm test` from a terminal.
 
-![Image of Unit Tests Suite Results](docs\UnitTestSuiteResults.png)
+![Image of Unit Tests Suite Results](https://github.com/NickBurness/Summative-1/blob/main/docs/UnitTestSuiteResults.png)
 
 # Set up and running the Web App
 ## Prerequisites
@@ -146,19 +146,19 @@ Nb. populate these files with the same keys as your `.env` file in step 2, makin
 ### Exchange Rates Matrix 
 Calculates the exchange rates between all other available currencies in the system in order to create a matrix of exchange rates. This algorithm uses two loops, one to iterate over all currencies and another loop to compare the rates between the currencies.  
 The function `calculateExchangeRates` has a time complexity of O(n^2), where n is the number of currencies.
-![calculateExchangeRates function](docs\calculateExchangeRates.png)
+![calculateExchangeRates function](https://github.com/NickBurness/Summative-1/blob/main/docs/calculateExchangeRates.png)
 
 ### Convert Currency
 When the user requests to convert an amount from one currency to another it calls a script held on the client-side to calculate the result.  
 The function `convertCurrency` has a time complexity of O(1), which means it executes in constant time regardless of the size of the input. 
-![convertCurrency function](docs\convertCurrencyFunction.png)
+![convertCurrency function](https://github.com/NickBurness/Summative-1/blob/main/docs/convertCurrencyFunction.png)
 
 ### Environment Selection
 A development, test and production environment has been devised for the application. A configuration file for each of these environments is included into the project, but ignored from the source code using the projects .gitignore file fors security reasons. 
 
-![Environment specific .env files](docs\environmental-dotenv.png)
+![Environment specific .env files](https://github.com/NickBurness/Summative-1/blob/main/docs/environmental-dotenv.png)
 The algorithm for selecting the active environment is defined in the config.js file, it uses `process.env.NODE_ENV` to determine the active environment and select the appropriate secrets file to use in that environment. This functionality could be utilised to boost the overall usability, reliability and scalability through the development of a continuous improvement/continuous deployment (CI/CD) pipeline. 
-![Algorithm used to select the active environment](docs\enviroment-algorithm.png)
+![Algorithm used to select the active environment](https://github.com/NickBurness/Summative-1/blob/main/docs/enviroment-algorithm.png)
 
 ## Code Repository Structure
 1. `/src` Folder
@@ -202,7 +202,7 @@ The Currency Converter application follows the Model-View-Controller (MVC) patte
 - Model: Represented by `/models/currency.js`, which defines the structure and behavior of currency data.
 - View: Handled by the EJS files inside `/views`, which render data for the frontend.
 - Controller: The currency service and repository classes play the role of the controller to manage logic and process requests.
-![Figure of the MVC pattern](docs\MVC.png)
+![Figure of the MVC pattern](https://github.com/NickBurness/Summative-1/blob/main/docs/MVC.png)
 Image sourced from [https://developer.mozilla.org/en-US/docs/Glossary/MVC](https://developer.mozilla.org/en-US/docs/Glossary/MVC)
 
 ### Service and Repository Pattern
